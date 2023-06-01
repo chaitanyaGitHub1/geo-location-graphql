@@ -1,22 +1,15 @@
-// hasura.js module
-import fetch from "node-fetch";
-
 async function callHasura(query) {
-  const url = "http://localhost:8080/v1/graphql";
-
-  try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ query }),
-        });
-        const data = await response.json();
-        return data;
+    const url = "http://localhost:8080/v1/graphql";
+  
+    try {
+      const axios = await import("axios");
+      const response = await axios.default.post(url, { query });
+      return response.data;
     } catch (error) {
-        return console.error(error);
+      console.error(error);
+      return null;
     }
-}
-
-export default { callHasura };
+  }
+  
+  export default { callHasura };
+  
